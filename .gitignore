@@ -1,0 +1,8 @@
+.vscode
+.DS_store
+.gdb_history
+core
+*.tar
+
+pwndocker/
+run_docker.sh

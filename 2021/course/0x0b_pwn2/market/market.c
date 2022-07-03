@@ -43,7 +43,7 @@ int main()
     strcpy(admin->name, "admin");
 
     admin->secret = malloc(0x30);
-    int fd = open("/home/market/flag", O_RDONLY);
+    int fd = open("flag", O_RDONLY);
     read(fd, admin->secret, 0x30);
     close(fd);
 
