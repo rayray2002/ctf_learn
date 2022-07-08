@@ -3,6 +3,8 @@
 .gdb_history
 core
 *.tar
+*.zip
+libc.so.6
 
 pwndocker/
 run_docker.sh
