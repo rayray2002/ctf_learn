@@ -72,3 +72,54 @@ def mutate(a):
     i = random.randrange(len(a))
     r[i] = random.randrange(len(charset))
     return tuple(r)
+
+# keys = np.array(initialize(10000))
+# scores = np.array([fitness(tuple(k)) for k in keys])
+# keys = keys[scores.argsort()[::-1][:500]]
+
+# for i in range(1000):
+#     child = np.array([crossover(k, keys[random.randrange(len(keys))], 0.5) for k in keys])
+#     mutated = np.array([mutate(k) for k in keys])
+#     keys = np.concatenate((child, mutated))
+
+#     scores = np.array([fitness(tuple(k)) for k in keys])
+#     keys = keys[np.argsort(scores)[::-1][:500]]
+#     print(i, max(scores))
+#     print(decrypt(ctx, keys[0]))
+
+# print(list(keys[0]))
+key = [24, 23, 23, 21, 12, 11, 12, 33, 9, 15, 37, 25, 20, 17, 36, 1, 26, 31, 35, 17, 23, 11, 2, 22, 15, 28, 25, 8, 4, 26, 35, 21, 25, 24, 19, 14, 32, 19, 16, 34, 27, 0, 28, 8, 21, 24, 21, 10, 21, 28, 4, 2, 6, 32, 20, 33, 11, 10, 36, 34, 31, 30, 28, 12, 10, 2, 19, 27, 38, 7, 0, 20, 29, 38, 27, 2, 21, 17, 1, 28]
+plain = "gitli is a 384 bits marmutatith designed to achieve high security with high perfortance across a bro,  range t  platforms. it is currently in round 2 of the nist sightweight cryptodnaphic pwiject, the submission consisting of an authenticatedgencryption and a  nyptograubic hash function. in this paper, we focus on the gitli cipher, which marforms fothenticated encryption with associated data."
+
+# 82: t -> m
+idx = plain.find("perfortance")
+print(idx)
+print(plain[82])
+key[2] += charset_idmap['t'] - charset_idmap['m']
+print(decrypt(ctx, key))
+# gimli is a 384 bits marmutatith designed to achieve high security with high performance across a bro,  range t  platforms. it is currently in round 2 of the nist lightweight cryptodnaphic pwiject, the submission consisting of an authenticated encryption and a  nyptograubic hash function. in this paper, we focus on the gimli cipher, which marforms fothenticated encryption with associated data.
+
+# 189: w -> r
+# 190: i -> o
+idx = plain.find("pwiject")
+print(idx)
+print(plain[189])
+key[189%80] += charset_idmap['w'] - charset_idmap['r']
+key[190%80] += charset_idmap['i'] - charset_idmap['o']
+print(decrypt(ctx, key))
+# gimli is a 384 bits marmutation designed to achieve high security with high performance across a bro,  range of platforms. it is currently in round 2 of the nist lightweight cryptodnaphic project, the submission consisting of an authenticated encryption and a  nyptographic hash function. in this paper, we focus on the gimli cipher, which marforms authenticated encryption with associated data.
+
+# 340: m -> p
+# 341: a -> e
+idx = plain.find("marforms")
+print(idx)
+print(plain[340])
+key[340%80] += charset_idmap['m'] - charset_idmap['p']
+key[341%80] += charset_idmap['a'] - charset_idmap['e']
+print(decrypt(ctx, key))
+# gimli is a 384 bits permutation designed to achieve high security with high performance across a broad range of platforms. it is currently in round 2 of the nist lightweight cryptographic project, the submission consisting of an authenticated encryption and a cryptographic hash function. in this paper, we focus on the gimli cipher, which performs authenticated encryption with associated data.
+
+print(key)
+k = hashlib.sha512(''.join(charset[k] for k in key).encode('ascii')).digest()
+flag = bytes(ci ^ ki for ci, ki in zip(enc, k)).decode('ascii')
+print(flag)
