@@ -45,7 +45,8 @@ def main():
             print('YESSSSSSSS')
         except PaddingError:
             print('NOOOOOOOOO')
-        except:
+        except Exception as e:
+            print(e)
             return
 
 if __name__ == '__main__':

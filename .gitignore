@@ -5,6 +5,7 @@ core
 *.tar
 *.zip
 libc.so.6
+*.pyc
 
 pwndocker/
 run_docker.sh
